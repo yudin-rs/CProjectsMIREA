@@ -21,13 +21,13 @@ int check(int n, int k) {
 int main(int argc, char *argv[]) {
     int n = atoi(argv[1]);
     if (n < 0) {
-        printf("%d\n", -2);
+        printf("-2\n");
     } else {
         int log = logarithm(n);
         if (check(n, log) == 1) {
             printf("%d\n", log);
         } else {
-            printf("%d\n", -1);
+            printf("-1\n");
         }
     }
 }
