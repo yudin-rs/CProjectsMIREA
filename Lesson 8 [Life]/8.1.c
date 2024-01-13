@@ -13,7 +13,7 @@ int main() {
     generationBoard(N, t);
 
     for (int i = 0; i <= k; i++) {
-        printf("Шаг игры № %d\n", i);
+        printf("Ход игры № %d\n", i);
         printBoard(N);
 
         fprintf(output, "Шаг игры № %d\n", i);

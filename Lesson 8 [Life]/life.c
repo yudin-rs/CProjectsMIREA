@@ -9,7 +9,7 @@ void generationBoard(int N, int t) {
     srand(time(NULL));
     board = (int **) malloc(N * sizeof(int *));
     for (int i = 0; i < N; i++) {
-        board[i] = (int *) malloc(N * sizeof(int));;
+        board[i] = (int *) malloc(N * sizeof(int));
     }
     for (int i = 0; i < t; i++) {
         int row = rand() % N;
@@ -19,7 +19,7 @@ void generationBoard(int N, int t) {
 }
 
 void clearBoard(int N) {
-    for (int i; i<N; i++) {
+    for (int i = 0; i < N; i++) {
         free(board[i]);
     }
     free(board);
@@ -39,7 +39,7 @@ void updateBoard(int N) {
     int **tempBoard;
     tempBoard = (int **) malloc(N * sizeof(int *));
     for (int i = 0; i < N; i++) {
-        tempBoard[i] = (int *) malloc(N * sizeof(int));;
+        tempBoard[i] = (int *) malloc(N * sizeof(int));
     }
 
     for (int i = 0; i < N; i++) {
