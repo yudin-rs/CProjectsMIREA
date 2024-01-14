@@ -2,7 +2,7 @@
 
 void SomeFunction(const char* str) {
 
-    char *secret_data = "mama";
+    char *secret_data = "AAAABBBB";
 
     printf(str);
 
