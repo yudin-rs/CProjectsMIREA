@@ -16,7 +16,7 @@ int main() {
         printf("Ход игры № %d\n", i);
         printBoard(N);
 
-        fprintf(output, "Шаг игры № %d\n", i);
+        fprintf(output, "Ход игры № %d\n", i);
         printToFile(N, output);
         if (i < k) {
             updateBoard(N);
