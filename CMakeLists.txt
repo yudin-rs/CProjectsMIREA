@@ -14,7 +14,10 @@ add_executable(CProjectsMIREA
         "Lesson 5/5.1.c"
         "Lesson 4/4.2.c"
         "Lesson 8/8.2.c"
-        "Lesson 8 [Life]/life.c"
-        "Lesson 8 [Life]/life.c"
-        "Lesson 9/9.1.c"
-        "Lesson 9/9.1.c")
+        "Lesson 8/Lesson 8 [Life]/life.c"
+        "Lesson 8/Lesson 8 [Life]/life.c"
+        "Lesson 7/7.1.c"
+        "Lesson 7/7.1.c"
+        "Lesson 5/5.2.c"
+        "Lesson 6/6.1.c"
+        "Lesson 7/7.2.c")
