@@ -2,7 +2,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
-#include <unistd.h>
 
 char *generateKey(size_t length, char *encryptionTable) {
     const size_t charset_size = strlen(encryptionTable);
@@ -102,15 +101,19 @@ int modInverse(int a, int m) {
     return 0;
 }
 
-void rsa(int p, int q, int *e, int *n, int *d) {
+void rsa(int p, int q, int *e, int *n) {
     *n = p * q;
     int fi = (p - 1) * (q - 1);
+    int d;
     *e = 5;
-    *d = modInverse(*e, fi);
-    if ((*e * *d) % fi != 1) {
+    d = modInverse(*e, fi);
+    if ((*e * d) % fi != 1) {
         fprintf(stderr, "Ошибка: d не удовлетворяет условию (e * d) mod fi = 1\n");
         return;
     }
+    FILE *crypt = fopen("crypt.txt", "w");
+    fprintf(crypt, "%d %d", d, *n);
+    fclose(crypt);
 }
 
 int modExp(int base, int exp, int mod) {
@@ -180,39 +183,60 @@ char *decryptRSA(char *encrypted, int d, int n) {
 
 int main(int argc, char *argv[]) {
     const char *file = argv[1];
-    size_t token_length = 16;
+    size_t token_length = 32;
     char table[] = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789";
-    char *token = generateKey(token_length, table);
-    char *encryptedValue = encryptString(token, table);
+    char *token, *resultRSA, *encryptedValue, *resultDRSA, *key;
+    int p = 7, q = 13, e, n, d;
+    FILE *crypt;
 
-    printf("Рандом ключ: %s\n", token);
-    printf("Ключ по таблице: %s\n", encryptedValue);
-    xor(file, token);
-    printf("Зашифровано");
+    int choice;
 
-    free(token);
+    printf("Выберите режим работы:\n[1] Зашифровать;\n[2] Расшифровать;\n[0] Выход\n");
 
-    int p = 7;
-    int q = 13;
-    int e, n, d;
-    rsa(p, q, &e, &n, &d);
-    printf("(e, n) = (%d, %d)\n", e, n);
-    printf("(d, n) = (%d, %d)\n", d, n);
+    while (1) {
+        printf("Ваш выбор: ");
+        scanf("%d", &choice);
+        getchar();
 
-    char *resultRSA = encryptRSA(encryptedValue, e, n);
-    printf("Зашифрованный табличный ключ рса: %s\n", resultRSA);
-    free(encryptedValue);
-    char *resultDRSA = decryptRSA(resultRSA, d, n);
-    printf("Расшифрованный ключ рса: %s\n", resultDRSA);
-    char *result = decryptString(resultDRSA, table);
-    printf("Расшифрованный ключ рса: %s\n", result);
-    free(resultRSA);
-    free(resultDRSA);
+        switch (choice) {
+            case 0:
+                printf("Выход\n");
+                break;
+            case 1:
+                token = generateKey(token_length, table);
+                encryptedValue = encryptString(token, table);
+                xor(file, token);
+                printf("Файл зашифрован\n");
+                rsa(p, q, &e, &n);
+                resultRSA = encryptRSA(encryptedValue, e, n);
+                free(token);
+                free(encryptedValue);
+                break;
+            case 2:
+                crypt = fopen("crypt.txt", "r");
+                if (crypt == NULL) {
+                    perror("Ошибка открытия файла crypt.txt");
+                    return EXIT_FAILURE;
+                }
+                fscanf(crypt, "%d", &d);
+                fclose(crypt);
+                resultDRSA = decryptRSA(resultRSA, d, n);
+                key = decryptString(resultDRSA, table);
+                xor(file, key);
+                printf("Файл расшифрован\n");
+                free(resultDRSA);
+                free(resultRSA);
+                resultRSA=NULL;
+                free(key);
+                break;
+            default:
+                printf("Некорректный ввод\n");
+                break;
+        }
 
-    sleep(5);
-
-    xor(file, result);
-    printf("Расшифровано");
-
+        if (choice == 0) {
+            break;  // Выход из цикла при выборе 0
+        }
+    }
 }
 
