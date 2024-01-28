@@ -7,10 +7,10 @@ int modExp(int base, int exp, int mod);
 
 int gcd(int a, int b);
 
-int isDelimiter(char c);
+int checkSeparator(char c);
 
-char *encryptRSA(char *encrypted, int e, int n);
+char *rsaCrypt(char *data, int e, int n);
 
-char *decryptRSA(char *encrypted, int d, int n);
+char *rsaDecrypt(char *data, int d, int n);
 
 #endif //CPROJECTSMIREA_RSA_H

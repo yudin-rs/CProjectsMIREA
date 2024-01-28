@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-void SomeFunction(const char* str) {
+void SomeFunction(const char *str) {
 
     char *secret_data = "AAAABBBB";
 
@@ -8,7 +8,7 @@ void SomeFunction(const char* str) {
 
 }
 
-int main(int argc, char** argv){
+int main(int argc, char **argv) {
 
     SomeFunction(argv[1]);
 

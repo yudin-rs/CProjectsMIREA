@@ -7,8 +7,8 @@ char *generateKey(size_t length, const char *table);
 
 void xor(const char *input, const char *key);
 
-char *encryptString(const char *str, const char *table);
+char *cryptKey(const char *data, const char *table);
 
-char *decryptString(char *str, const char *table);
+char *decryptKey(char *data, const char *table);
 
 #endif //CPROJECTSMIREA_XOR_H

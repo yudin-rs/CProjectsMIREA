@@ -5,52 +5,56 @@
 #include "xor.h"
 
 int main(int argc, char *argv[]) {
-    const char *file = argv[1];
-    size_t token_length = 32;
+    const char *inputFile = argv[1];
+    size_t keyLength = 32;
     char table[] = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789";
-    char *token, *resultRSA, *encryptedValue, *resultDRSA, *key;
-    int p = 83, q = 89, e, n, d, choice;
-    FILE *crypt;
+    char *key, *resultRsaCrypt, *cValue, *resultDRsaCrypt;
+    int p = 83, q = 89, e, n, d, input;
+    FILE *crypt, *debug;
 
+    debug = fopen("debug.txt", "w");
     printf("Выберите режим работы:\n[1] Зашифровать;\n[2] Расшифровать;\n[0] Выход\n");
-
     while (1) {
         printf("Ваш выбор: ");
-        scanf("%d", &choice);
+        scanf("%d", &input);
         getchar();
 
-        switch (choice) {
+        switch (input) {
             case 0:
-                printf("Выход\n");
+                printf("Выход...\n");
                 break;
             case 1:
-                token = generateKey(token_length, table);
-                encryptedValue = encryptString(token, table);
-                xor(file, token);
+                key = generateKey(keyLength, table);
+                cValue = cryptKey(key, table);
+                xor(inputFile, key);
                 printf("Файл зашифрован\n");
                 rsa(p, q, &e, &n);
-                resultRSA = encryptRSA(encryptedValue, e, n);
-                free(token);
-                free(encryptedValue);
+                resultRsaCrypt = rsaCrypt(cValue, e, n);
+                fprintf(debug, "%s\n%s\n(%d %d)\n%s", key, cValue, e, n, resultRsaCrypt);
+                free(key);
+                free(cValue);
                 break;
             case 2:
                 crypt = fopen("crypt.txt", "r");
                 fscanf(crypt, "%d", &d);
                 fclose(crypt);
-                resultDRSA = decryptRSA(resultRSA, d, n);
-                key = decryptString(resultDRSA, table);
-                xor(file, key);
+                resultDRsaCrypt = rsaDecrypt(resultRsaCrypt, d, n);
+                key = decryptKey(resultDRsaCrypt, table);
+                xor(inputFile, key);
                 printf("Файл расшифрован\n");
-                free(resultDRSA);
-                free(resultRSA);
-                resultRSA = NULL;
+                fprintf(debug, "\n%s\n%s", resultDRsaCrypt, key);
+                fclose(debug);
+                free(resultDRsaCrypt);
+                free(resultRsaCrypt);
+                resultRsaCrypt = NULL;
                 free(key);
+                input = 0;
                 break;
             default:
                 printf("Некорректный ввод\n");
                 break;
         }
-        if (choice == 0) {
+        if (input == 0) {
             break;
         }
     }

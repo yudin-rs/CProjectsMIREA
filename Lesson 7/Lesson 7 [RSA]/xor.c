@@ -28,12 +28,12 @@ void xor(const char *input, const char *key) {
     fclose(input_file);
 }
 
-char *encryptString(const char *str, const char *table) {
-    size_t result_length = strlen(str) * 3 + 1;
+char *cryptKey(const char *data, const char *table) {
+    size_t result_length = strlen(data) * 3 + 1;
     char *result = (char *) malloc(result_length);
     result[0] = '\0';
-    for (size_t i = 0; str[i] != '\0'; i++) {
-        char currentChar = str[i];
+    for (size_t i = 0; data[i] != '\0'; i++) {
+        char currentChar = data[i];
         const char *charPtr = strchr(table, currentChar);
         if (charPtr != NULL) {
             int index = (int) (charPtr - table);
@@ -45,13 +45,13 @@ char *encryptString(const char *str, const char *table) {
     return result;
 }
 
-char *decryptString(char *str, const char *table) {
+char *decryptKey(char *data, const char *table) {
     size_t result_length = 1;
     char *result = (char *) malloc(result_length);
     result[0] = '\0';
-    for (size_t i = 0; str[i] != '\0'; i += 3) {
+    for (size_t i = 0; data[i] != '\0'; i += 3) {
         char temp[4];
-        strncpy(temp, &str[i], 3);
+        strncpy(temp, &data[i], 3);
         temp[3] = '\0';
         int index = (int) strtol(temp, NULL, 10);
         char decryptedChar = table[index];

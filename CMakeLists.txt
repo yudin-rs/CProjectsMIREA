@@ -18,7 +18,7 @@ add_executable(CProjectsMIREA
         "Lesson 8/Lesson 8 [Life]/life.c"
         "Lesson 7/7.1.c"
         "Lesson 7/7.1.c"
-        "Lesson 5/5.2.c"
+        "Lesson 5/Lesson 5 [Karacuba]/5.2.c"
         "Lesson 6/6.1.c"
         "Lesson 7/Lesson 7 [RSA]/7.2.c"
         "Lesson 7/Lesson 7 [RSA]/7.2.c"
@@ -28,4 +28,9 @@ add_executable(CProjectsMIREA
         "Lesson 7/Lesson 7 [RSA]/xor.c"
         "Lesson 7/Lesson 7 [RSA]/xor.h"
         "Lesson 6/macros.c"
-        "Lesson 6/macros.h")
+        "Lesson 6/macros.h"
+        "Lesson 5/Lesson 5 [Karacuba]/longnum.c"
+        "Lesson 5/Lesson 5 [Karacuba]/longnum_utils.c"
+        "Lesson 5/Lesson 5 [Karacuba]/longnum.h"
+        "Lesson 5/Lesson 5 [Karacuba]/longnum_utils.h"
+)

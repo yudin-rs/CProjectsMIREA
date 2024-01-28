@@ -1,5 +1,6 @@
 #ifndef CPROJECTSMIREA_MACROS_H
 #define CPROJECTSMIREA_MACROS_H
+
 #include <stdlib.h>
 
 #define COMPARATOR(compare) int compare(const void *a, const void *b) { \
