@@ -3,13 +3,36 @@
 #include <stdlib.h>
 #include "rsa.h"
 #include "xor.h"
+#include <time.h>
+
+int isPrime(int n) {
+    if (n <= 1) {
+        return 0;
+    }
+    for (int i = 2; i * i <= n; i++) {
+        if (n % i == 0) {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+int randNumPrime(int min, int max) {
+    srand(time(NULL));
+    int result = rand() % (max - min + 1) + min;
+    while (!isPrime(result)) {
+        result = rand() % (max - min + 1) + min;
+    }
+    return result;
+}
+
 
 int main(int argc, char *argv[]) {
     const char *inputFile = argv[1];
     size_t keyLength = 32;
     char table[] = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789";
     char *key, *resultRsaCrypt, *cValue, *resultDRsaCrypt;
-    int p = 83, q = 89, e, n, d, input;
+    int p = randNumPrime(2, 83), q = randNumPrime(2, 89), e, n, d, input;
     FILE *crypt, *debug;
 
     debug = fopen("debug.txt", "w");
