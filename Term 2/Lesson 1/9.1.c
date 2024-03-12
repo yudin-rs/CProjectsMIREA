@@ -209,7 +209,8 @@ int main(int argc, char *argv[]) {
                             }
                             break;
                         case 3:
-                            // FILE INPUT
+                            matrixA = inputOneMatrix(&m_a, &n_a);
+                            matrixOut(matrixA, m_a, n_a);
                             break;
                         default:
                             printf("Некорректный ввод\n");
