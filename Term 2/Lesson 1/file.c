@@ -52,34 +52,21 @@ void exportTwoMatrix(int **matrixA, int **matrixB, int **resultMatrix, int m_a, 
     fclose(file);
 }
 
-int **inputOneMatrix(int *m, int *n) {
-    FILE *file = fopen("input", "r");
-    *m = 0;
-    *n = 0;
-    int value;
-    while (fscanf(file, "%d", &value) == 1) {
-        (*n)++;
-        char currentChar;
-        if (fscanf(file, "%c", &currentChar) == 1) {
-            if (currentChar == '\n' || currentChar == EOF) {
-                (*m)++;
-                *n = 0;
-            }
-        }
-    }
-    fseek(file, 0, SEEK_SET);
-
+int **inputOneMatrix(const char *filename, int *m, int *n) {
+    FILE *file = fopen(filename, "r");
+    fscanf(file, "%d %d", m, n);
     int **matrix = matrixGeneration(*m, *n);
     for (int i = 0; i < *m; i++) {
         for (int j = 0; j < *n; j++) {
-            if (fscanf(file, "%d", &matrix[i][j]) != 1) {
-                exit(1);
-            }
+            fscanf(file, "%d", &matrix[i][j]);
         }
     }
     fclose(file);
     return matrix;
 }
+
+
+
 
 
 

@@ -119,7 +119,42 @@ int main(int argc, char *argv[]) {
                             }
                             break;
                         case 3:
-                            // FILE INPUT
+                            matrixA = inputOneMatrix("input_a", &m_a, &n_a);
+                            matrixB = inputOneMatrix("input_b", &m_b, &n_b);
+                            if (n_a != m_b) {
+                                printf("Число столбцов матрицы A не совпадает с числом строк матрицы B.\n");
+                                break;
+                            }
+                            while (1) {
+                                printf("[1] Консоль;\n[2] Файл\n[0] Назад\n");
+                                printf("Введите режим вывода: ");
+                                scanf("%d", &out);
+                                getchar();
+                                switch (out) {
+                                    case 1:
+                                        resultMatrix = matrixMultiply(matrixA, m_a, n_a, matrixB, m_b, n_b);
+                                        printf("Результат умножения матриц A*B:\n");
+                                        matrixOut(resultMatrix, m_a, n_b);
+                                        matrixFree(matrixA, m_a);
+                                        matrixFree(matrixB, m_b);
+                                        matrixFree(resultMatrix, m_a);
+                                        return 0;
+                                    case 2:
+                                        resultMatrix = matrixMultiply(matrixA, m_a, n_a, matrixB, m_b, n_b);
+                                        exportTwoMatrix(matrixA, matrixB, resultMatrix, m_a, n_a, m_b, n_b);
+                                        matrixFree(matrixA, m_a);
+                                        matrixFree(matrixB, m_b);
+                                        matrixFree(resultMatrix, m_a);
+                                        return 0;
+                                    case 0:
+                                        break;
+                                    default:
+                                        printf("Некорректный ввод\n");
+                                        break;
+                                }
+                                if (out == 0)
+                                    break;
+                            }
                             break;
                         default:
                             printf("Некорректный ввод\n");
@@ -153,14 +188,14 @@ int main(int argc, char *argv[]) {
                                         matrixA = matrixFill(matrixGeneration(n_a, m_a), n_a, m_a);
                                         matrixB = matrixTransp(matrixA, m_a, n_a);
                                         printf("Результат транспонирования матрицы:\n");
-                                        matrixOut(matrixB, m_a, n_a);
+                                        matrixOut(matrixB, n_a, m_a);
                                         matrixFree(matrixA, m_a);
                                         matrixFree(matrixB, m_b);
                                         return 0;
                                     case 2:
                                         matrixA = matrixFill(matrixGeneration(n_a, m_a), n_a, m_a);
                                         matrixB = matrixTransp(matrixA, m_a, n_a);
-                                        exportOneMatrix(matrixA, matrixB, m_a, n_a);
+                                        exportOneMatrix(matrixA, matrixB, n_a, m_a);
                                         matrixFree(matrixA, m_a);
                                         matrixFree(matrixB, m_b);
                                         return 0;
@@ -187,14 +222,14 @@ int main(int argc, char *argv[]) {
                                         matrixA = matrixFillRand(matrixGeneration(n_a, m_a), n_a, m_a);
                                         matrixB = matrixTransp(matrixA, m_a, n_a);
                                         printf("Результат транспонирования матрицы:\n");
-                                        matrixOut(matrixB, m_a, n_a);
+                                        matrixOut(matrixB, n_a, m_a);
                                         matrixFree(matrixA, m_a);
                                         matrixFree(matrixB, m_b);
                                         return 0;
                                     case 2:
                                         matrixA = matrixFillRand(matrixGeneration(n_a, m_a), n_a, m_a);
                                         matrixB = matrixTransp(matrixA, m_a, n_a);
-                                        exportOneMatrix(matrixA, matrixB, m_a, n_a);
+                                        exportOneMatrix(matrixA, matrixB, n_a, m_a);
                                         matrixFree(matrixA, m_a);
                                         matrixFree(matrixB, m_b);
                                         return 0;
@@ -209,8 +244,34 @@ int main(int argc, char *argv[]) {
                             }
                             break;
                         case 3:
-                            matrixA = inputOneMatrix(&m_a, &n_a);
-                            matrixOut(matrixA, m_a, n_a);
+                            matrixA = inputOneMatrix("input", &m_a, &n_a);
+                            matrixB = matrixTransp(matrixA, m_a, n_a);
+                            while (1) {
+                                printf("[1] Консоль;\n[2] Файл\n[0] Назад\n");
+                                printf("Введите режим вывода: ");
+                                scanf("%d", &out);
+                                getchar();
+                                switch (out) {
+                                    case 1:
+                                        printf("Результат транспонирования матрицы:\n");
+                                        matrixOut(matrixB, n_a, m_a);
+                                        matrixFree(matrixA, m_a);
+                                        matrixFree(matrixB, m_b);
+                                        return 0;
+                                    case 2:
+                                        exportOneMatrix(matrixA, matrixB, n_a, m_a);
+                                        matrixFree(matrixA, m_a);
+                                        matrixFree(matrixB, m_b);
+                                        return 0;
+                                    case 0:
+                                        break;
+                                    default:
+                                        printf("Некорректный ввод\n");
+                                        break;
+                                }
+                                if (out == 0)
+                                    break;
+                            }
                             break;
                         default:
                             printf("Некорректный ввод\n");
