@@ -20,17 +20,7 @@ int **matrixFill(int **matrix, int m, int n) {
     return matrix;
 }
 
-void matrixOut(int **matrix, int m, int n) {
-    for (int i = 0; i < m; i++) {
-        for (int j = 0; j < n; j++) {
-            printf("%d ", matrix[i][j]);
-        }
-        printf("\n");
-    }
-}
-
-/*
- void matrixOut(int *matrix, int m, int n) {
+void matrixOut(int *matrix, int m, int n) {
     for (int i = 0; i < m * n; i++) {
         printf("%d ", matrix[i]);
         if ((i + 1) % n == 0) {
@@ -38,19 +28,6 @@ void matrixOut(int **matrix, int m, int n) {
         }
     }
 }
-
- */
-
-int **matrixTransp(int **matrix, int m, int n) {
-    int **transposedMatrix = matrixGeneration(n, m);
-    for (int i = 0; i < m; i++) {
-        for (int j = 0; j < n; j++) {
-            transposedMatrix[j][i] = matrix[i][j];
-        }
-    }
-    return transposedMatrix;
-}
-
 
 int **matrixFillRand(int **matrix, int m, int n) {
     srand(time(NULL));
@@ -62,29 +39,39 @@ int **matrixFillRand(int **matrix, int m, int n) {
     return matrix;
 }
 
-int **matrixMultiply(int **matrixA, int m1, int n1, int **matrixB, int m2, int n2) {
+int *matrixMultiply(int *matrixA, int m1, int n1, int *matrixB, int m2, int n2) {
     if (n1 != m2) {
-        return NULL;
-    }
-    int **resultMatrix = malloc(m1 * sizeof(int *));
-    for (int i = 0; i < m1; i++) {
-        resultMatrix[i] = malloc(n2 * sizeof(int));
+        return NULL; // Если размерности матриц не совпадают, возвращаем NULL
     }
 
+    // Выделяем память под результирующую матрицу
+    int *resultMatrix = malloc(m1 * n2 * sizeof(int));
+
+    // Инициализируем элементы результирующей матрицы нулями
+    for (int i = 0; i < m1 * n2; i++) {
+        resultMatrix[i] = 0;
+    }
+
+    // Выполняем умножение матриц
     for (int i = 0; i < m1; i++) {
         for (int j = 0; j < n2; j++) {
-            resultMatrix[i][j] = 0;
             for (int k = 0; k < n1; k++) {
-                resultMatrix[i][j] += matrixA[i][k] * matrixB[k][j];
+                // Используем одномерные массивы и вычисляем индексы в соответствии с их размерами
+                resultMatrix[i * n2 + j] += matrixA[i * n1 + k] * matrixB[k * n2 + j];
             }
         }
     }
+
     return resultMatrix;
 }
 
-void matrixFree(int **matrix, int m) {
+int *convert(int **matrix, int m, int n) {
+    int *result = malloc(m * n * sizeof(int));
+    int index = 0;
     for (int i = 0; i < m; i++) {
-        free(matrix[i]);
+        for (int j = 0; j < n; j++) {
+            result[index++] = matrix[i][j];
+        }
     }
-    free(matrix);
+    return result;
 }

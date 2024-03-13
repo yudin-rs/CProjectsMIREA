@@ -33,9 +33,10 @@ add_executable(CProjectsMIREA
         "Term 1/Lesson 5/Lesson 5 [Karacuba]/longnum_utils.c"
         "Term 1/Lesson 5/Lesson 5 [Karacuba]/longnum.h"
         "Term 1/Lesson 5/Lesson 5 [Karacuba]/longnum_utils.h"
-        "Term 2/Lesson 1/9.1.c"
+        "Term 2/Lesson 1/main.c"
         "Term 2/Lesson 1/matrix.c"
         "Term 2/Lesson 1/matrix.h"
         "Term 2/Lesson 1/file.c"
         "Term 2/Lesson 1/file.h"
+        "Term 2/Lesson 2/main.c"
 )
