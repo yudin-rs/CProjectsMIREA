@@ -93,6 +93,10 @@ int main(int argc, char *argv[]) {
                                         matrixA = matrixFillRand(matrixGeneration(m_a, n_a), m_a, n_a);
                                         matrixB = matrixFillRand(matrixGeneration(m_b, n_b), m_b, n_b);
                                         resultMatrix = matrixMultiply(matrixA, m_a, n_a, matrixB, m_b, n_b);
+                                        printf("\nA");
+                                        matrixOut(matrixA, m_a, n_a);
+                                        printf("\nB");
+                                        matrixOut(matrixB, m_b, n_b);
                                         printf("Результат умножения матриц A*B:\n");
                                         matrixOut(resultMatrix, m_a, n_b);
                                         matrixFree(matrixA, m_a);

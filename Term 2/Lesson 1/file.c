@@ -3,7 +3,12 @@
 #include "matrix.h"
 
 void exportOneMatrix(int **matrix, int **transpMatrix, int m, int n) {
-    FILE *file = fopen("out", "w");
+    FILE *file = fopen("out.txt", "w");
+    if (file == NULL) {
+        printf("Ошибка открытия файла\n");
+        return;
+    }
+
     fprintf(file, "Исходная матрица %dx%d:\n", m, n);
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < m; j++) {
@@ -24,7 +29,12 @@ void exportOneMatrix(int **matrix, int **transpMatrix, int m, int n) {
 }
 
 void exportTwoMatrix(int **matrixA, int **matrixB, int **resultMatrix, int m_a, int n_a, int m_b, int n_b) {
-    FILE *file = fopen("out", "w");
+    FILE *file = fopen("out.txt", "w");
+    if (file == NULL) {
+        printf("Ошибка открытия файла\n");
+        return;
+    }
+
     fprintf(file, "Первая матрица %dx%d:\n", m_a, n_a);
     for (int i = 0; i < m_a; i++) {
         for (int j = 0; j < n_a; j++) {
@@ -52,8 +62,13 @@ void exportTwoMatrix(int **matrixA, int **matrixB, int **resultMatrix, int m_a, 
     fclose(file);
 }
 
-int **inputOneMatrix(const char *filename, int *m, int *n) {
-    FILE *file = fopen(filename, "r");
+int **inputOneMatrix(int *m, int *n) {
+    FILE *file = fopen("input.txt", "r");
+    if (file == NULL) {
+        printf("Ошибка открытия файла\n");
+        return NULL;
+    }
+
     fscanf(file, "%d %d", m, n);
     int **matrix = matrixGeneration(*m, *n);
     for (int i = 0; i < *m; i++) {
@@ -64,12 +79,3 @@ int **inputOneMatrix(const char *filename, int *m, int *n) {
     fclose(file);
     return matrix;
 }
-
-
-
-
-
-
-
-
-

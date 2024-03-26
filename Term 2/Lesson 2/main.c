@@ -5,7 +5,7 @@
 #include "matrix.h"
 
 int main(int argc, char *argv[]) {
-    int mode, input, m_a, n_a, out, m_b, n_b;
+    int m_a, n_a, m_b, n_b;
     int **matrixA, **matrixB, *resultMatrix;
     printf("Введите размерность матрицы A (m n): ");
     scanf("%d %d", &m_a, &n_a);
