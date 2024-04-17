@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "matrix.h"
 #include "file.h"
+#include <time.h>
 
 int main(int argc, char *argv[]) {
     int mode, input, m_a, n_a, out, m_b, n_b;
@@ -91,6 +92,7 @@ int main(int argc, char *argv[]) {
                                 switch (out) {
                                     case 1:
                                         matrixA = matrixFillRand(matrixGeneration(m_a, n_a), m_a, n_a);
+                                        srand(time(NULL));
                                         matrixB = matrixFillRand(matrixGeneration(m_b, n_b), m_b, n_b);
                                         resultMatrix = matrixMultiply(matrixA, m_a, n_a, matrixB, m_b, n_b);
                                         printf("\nA");
@@ -225,6 +227,7 @@ int main(int argc, char *argv[]) {
                                     case 1:
                                         matrixA = matrixFillRand(matrixGeneration(n_a, m_a), n_a, m_a);
                                         matrixB = matrixTransp(matrixA, m_a, n_a);
+                                        matrixOut(matrixA, m_a, n_a);
                                         printf("Результат транспонирования матрицы:\n");
                                         matrixOut(matrixB, n_a, m_a);
                                         matrixFree(matrixA, m_a);

@@ -30,13 +30,32 @@ void matrixOut(int *matrix, int m, int n) {
 }
 
 int **matrixFillRand(int **matrix, int m, int n) {
-    srand(time(NULL));
     for(int i = 0; i < n; i++) {
         for(int j = 0; j < m; j++) {
             matrix[i][j] = rand() % 1001;
         }
     }
     return matrix;
+}
+
+int **matrixMultiplyTwo(int **matrixA, int m1, int n1, int **matrixB, int m2, int n2) {
+    if (n1 != m2) {
+        return NULL;
+    }
+    int **resultMatrix = malloc(m1 * sizeof(int *));
+    for (int i = 0; i < m1; i++) {
+        resultMatrix[i] = malloc(n2 * sizeof(int));
+    }
+
+    for (int i = 0; i < m1; i++) {
+        for (int j = 0; j < n2; j++) {
+            resultMatrix[i][j] = 0;
+            for (int k = 0; k < n1; k++) {
+                resultMatrix[i][j] += matrixA[i][k] * matrixB[k][j];
+            }
+        }
+    }
+    return resultMatrix;
 }
 
 int *matrixMultiply(int *matrixA, int m1, int n1, int *matrixB, int m2, int n2) {

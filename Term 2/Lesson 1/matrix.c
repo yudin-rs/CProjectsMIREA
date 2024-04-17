@@ -29,18 +29,6 @@ void matrixOut(int **matrix, int m, int n) {
     }
 }
 
-/*
- void matrixOut(int *matrix, int m, int n) {
-    for (int i = 0; i < m * n; i++) {
-        printf("%d ", matrix[i]);
-        if ((i + 1) % n == 0) {
-            printf("\n");
-        }
-    }
-}
-
- */
-
 int **matrixTransp(int **matrix, int m, int n) {
     int **transposedMatrix = matrixGeneration(n, m);
     for (int i = 0; i < m; i++) {
@@ -53,7 +41,6 @@ int **matrixTransp(int **matrix, int m, int n) {
 
 
 int **matrixFillRand(int **matrix, int m, int n) {
-    srand(time(NULL));
     for(int i = 0; i < n; i++) {
         for(int j = 0; j < m; j++) {
             matrix[i][j] = rand() % 1001;

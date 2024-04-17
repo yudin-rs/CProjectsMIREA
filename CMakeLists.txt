@@ -40,4 +40,8 @@ add_executable(CProjectsMIREA
         "Term 2/Lesson 1/file.h"
         "Term 2/Lesson 2/main.c"
         "Term 2/Lesson 3/main.c"
+        "Term 2/Lesson 4/main.c"
+        "Term 2/Lesson 2_1/main.c"
+        "Term 2/Lesson 2_1/matrix.c"
+        "Term 2/Lesson 2_1/matrix.h"
 )

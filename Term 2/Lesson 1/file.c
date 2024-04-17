@@ -62,8 +62,8 @@ void exportTwoMatrix(int **matrixA, int **matrixB, int **resultMatrix, int m_a, 
     fclose(file);
 }
 
-int **inputOneMatrix(int *m, int *n) {
-    FILE *file = fopen("input.txt", "r");
+int **inputOneMatrix(const char *filename, int *m, int *n) {
+    FILE *file = fopen(filename, "r");
     if (file == NULL) {
         printf("Ошибка открытия файла\n");
         return NULL;
