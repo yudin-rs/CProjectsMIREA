@@ -34,12 +34,17 @@ void addBlock(struct Blockchain *chain, char *data) {
 }
 
 void printBlockchain(struct Blockchain *chain) {
+    if (chain->length == 0) {
+        printf("Блокчейна нет\n");
+        return;
+    }
+
     for (int i = chain->length - 1; i >= 0; i--) {
         printf("\nДанные в блоке %d: %s\n", i + 1, chain->blocks[i].data);
-        printf("Пред. хэш: ", i + 1);
+        printf("Пред. хэш: ");
         for (int j = 0; j < SHA256_DIGEST_LENGTH; j++)
             printf("%02x", chain->blocks[i].prev_hash[j]);
-        printf("\nХэш данного блока: ", i + 1);
+        printf("\nХэш данного блока: ");
         for (int j = 0; j < SHA256_DIGEST_LENGTH; j++)
             printf("%02x", chain->blocks[i].hash[j]);
         if (i > 0) {
@@ -51,8 +56,7 @@ void printBlockchain(struct Blockchain *chain) {
     }
 }
 
-int main() {
-    struct Blockchain chain = {0};
+void createBlockchain(struct Blockchain *chain) {
     int length;
     char data[MAX_DATA_LENGTH];
 
@@ -64,9 +68,35 @@ int main() {
         printf("Введите данные %d блока: ", i + 1);
         fgets(data, sizeof(data), stdin);
         data[strcspn(data, "\n")] = '\0';
-        addBlock(&chain, data);
+        addBlock(chain, data);
     }
+}
 
-    printf("\nБлокчейн:\n");
-    printBlockchain(&chain);
+int main() {
+    struct Blockchain chain = {0};
+    int choice;
+
+    while (1) {
+        printf("[1] Создать блокчейн\n");
+        printf("[2] Вывести блокчейн\n");
+        printf("[0] Закончить\n");
+        printf("Выберите опцию: ");
+        scanf("%d", &choice);
+        getchar();
+
+        switch (choice) {
+            case 0:
+                printf("Завершение программы.\n");
+                return 0;
+            case 1:
+                createBlockchain(&chain);
+                break;
+            case 2:
+                printBlockchain(&chain);
+                break;
+            default:
+                printf("Некорректный ввод.\n");
+                break;
+        }
+    }
 }
